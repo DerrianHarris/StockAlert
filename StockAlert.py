@@ -51,8 +51,8 @@ gpu_list = {"fe":"https://www.bestbuy.com/site/nvidia-geforce-rtx-4090-24gb-gddr
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # Add an argument
-    parser.add_argument('--email', type=str,help='Email to send message from', required=True)
-    parser.add_argument('--password', type=str,help='GMail passowrd (may need to setup app specific password)', required=True)
+    parser.add_argument('--email', type=str,help='Email to send message from')
+    parser.add_argument('--password', type=str,help='GMail passowrd (may need to setup app specific password)')
     parser.add_argument('--toEmail', type=str,help='Email to send message to')
     parser.add_argument('--delay', type=int,help='Delay for checking (in seconds)')
 
@@ -67,7 +67,7 @@ if __name__ == '__main__':
         TO_EMAIL=args.toEmail
     if args.delay:
         DELAY = args.delay
-
+    print("STOCK ALERTS FOR: {}".format(gpu_list))
     while True:
         for gpu in gpu_list:
             getInStockBB(gpu)
