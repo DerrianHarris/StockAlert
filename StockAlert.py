@@ -35,21 +35,25 @@ def send(subject,message):
 
 def getInStockBB(gpu):
     link=gpu_list[gpu]
-    print("1")
+
     page = requests.get(link, headers=HEADERS)
-    print("2: " + page)
-    soup = BeautifulSoup(page.content, 'html.parser')
-    print("3")
-    name = soup.find(class_="heading-5 v-fw-regular").get_text()
-    print("4")
-    sold_out = soup.find(text="Sold Out")
-    print("Checking: {}".format(name))
-    if not sold_out:
-        price=soup.find(class_="priceView-hero-price priceView-customer-price").find_all("span")[0].get_text()
-        print("IN STOCK")
-        send("IN STOCK {}".format(name),"Name: {}\nPrice: {}\nLink: {}".format(name,price,link))
+    status_code = page.status_code
+    if status_code is 200:
+        content = page.content
+        soup = BeautifulSoup(content, 'html.parser')
+
+        name = soup.find(class_="heading-5 v-fw-regular").get_text()
+
+        sold_out = soup.find(text="Sold Out")
+        print("Checking: {}".format(name))
+        if not sold_out:
+            price=soup.find(class_="priceView-hero-price priceView-customer-price").find_all("span")[0].get_text()
+            print("IN STOCK")
+            send("IN STOCK {}".format(name),"Name: {}\nPrice: {}\nLink: {}".format(name,price,link))
+        else:
+            print("Sold Out")
     else:
-        print("Sold Out")
+        print("ERROR: Status code - {}".format(status_code))
 gpu_list = {"fe":"https://www.bestbuy.com/site/nvidia-geforce-rtx-4090-24gb-gddr6x-graphics-card-titanium-and-black/6521430.p?skuId=6521430","msi_liquid":"https://www.bestbuy.com/site/msi-nvidia-geforce-rtx-4090-suprim-liquid-x-24g-24gb-ddr6x-pci-express-4-0-graphics-card/6522334.p?skuId=6522334","msi_trio":"https://www.bestbuy.com/site/msi-nvidia-geforce-rtx-4090-gaming-trio-24g-24gb-ddr6x-pci-express-4-0-graphics-card/6522371.p?skuId=6522371"}
 
 if __name__ == '__main__':
