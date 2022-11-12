@@ -37,7 +37,7 @@ def getInStockBB(gpu):
     link=gpu_list[gpu]
     print("1")
     page = requests.get(link, headers=HEADERS)
-    print("2")
+    print("2: " + page)
     soup = BeautifulSoup(page.content, 'html.parser')
     print("3")
     name = soup.find(class_="heading-5 v-fw-regular").get_text()
