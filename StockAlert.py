@@ -9,7 +9,7 @@ HEADERS = {"User-Agent": "Mozilla/5.0"}
 TO_EMAIL = ""
 EMAIL=""
 PASSWORD=""
-DELAY=10
+DELAY=1*60
 
 
 def send(subject,message):
