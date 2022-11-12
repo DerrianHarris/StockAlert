@@ -69,7 +69,8 @@ if __name__ == '__main__':
         DELAY=args.delay
     print("STOCK ALERTS FOR: {}".format(gpu_list))
     while True:
-        # for gpu in gpu_list:
-        #     getInStockBB(gpu)
+        for gpu in gpu_list:
+            print(gpu)
+            # getInStockBB(gpu)
         print("Sleeping for {}s....".format(DELAY))
         time.sleep(DELAY)
