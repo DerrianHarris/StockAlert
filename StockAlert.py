@@ -40,7 +40,7 @@ def getInStockBB(gpu):
     name = soup.find(class_="heading-5 v-fw-regular").get_text()
     sold_out = soup.find(text="Sold Out")
     print("Checking: {}".format(name))
-    if sold_out:
+    if not sold_out:
         price=soup.find(class_="priceView-hero-price priceView-customer-price").find_all("span")[0].get_text()
         print("IN STOCK")
         send("IN STOCK {}".format(name),"Name: {}\nPrice: {}\nLink: {}".format(name,price,link))
@@ -66,10 +66,10 @@ if __name__ == '__main__':
     if args.toEmail:
         TO_EMAIL=args.toEmail
     if args.delay:
-        DELAY = args.delay
+        DELAY=args.delay
     print("STOCK ALERTS FOR: {}".format(gpu_list))
     while True:
-        for gpu in gpu_list:
-            getInStockBB(gpu)
+        # for gpu in gpu_list:
+        #     getInStockBB(gpu)
         print("Sleeping for {}s....".format(DELAY))
         time.sleep(DELAY)
