@@ -35,9 +35,13 @@ def send(subject,message):
 
 def getInStockBB(gpu):
     link=gpu_list[gpu]
+    print("1")
     page = requests.get(link, headers=HEADERS)
+    print("2")
     soup = BeautifulSoup(page.content, 'html.parser')
+    print("3")
     name = soup.find(class_="heading-5 v-fw-regular").get_text()
+    print("4")
     sold_out = soup.find(text="Sold Out")
     print("Checking: {}".format(name))
     if not sold_out:
