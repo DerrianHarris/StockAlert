@@ -40,7 +40,7 @@ def getInStockBB(gpu):
     name = soup.find(class_="heading-5 v-fw-regular").get_text()
     sold_out = soup.find(text="Sold Out")
     print("Checking: {}".format(name))
-    if not sold_out:
+    if sold_out:
         price=soup.find(class_="priceView-hero-price priceView-customer-price").find_all("span")[0].get_text()
         print("IN STOCK")
         send("IN STOCK {}".format(name),"Name: {}\nPrice: {}\nLink: {}".format(name,price,link))
